@@ -5,15 +5,18 @@ import styled from "styled-components/native";
 import Currency from "./Currency";
 
 const FeedView = styled.View`
+    padding: 5px;
     height: 50px;
     overflow: hidden;
-    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: #BFFFF0;
 `;
 
 const Separator = styled.View`
-    height: 1px;
+    height: 2px;
     width: 100%;
-    background-color: #ced0ce;
+    background-color: black;
 `;
 
 const CurrFeed = props => {

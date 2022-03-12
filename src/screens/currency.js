@@ -11,7 +11,7 @@ import axios from "../../config/axios";
 const Header = styled.View`
     height: 150px;
     background-color: #F0FFC2
-    border-bottom-width: 2px;
+    border-bottom-width: 5px;
     border-bottom-color: black;
 `;
 const HeaderText = styled.Text`
@@ -45,7 +45,7 @@ const CurrScreen = props => {
                 <HeaderText>{name}</HeaderText>
                 <Text>{data.amount} {data.base}</Text>
             </Header>
-            <RateFeed rates={mappedRates} navigation={props.navigation}
+            <RateFeed fromRate={id} rates={mappedRates} navigation={props.navigation}
                 currencyName={name}/>
         </View>
     );

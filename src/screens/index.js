@@ -4,30 +4,12 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-// import screen components
-// import Feed from './feed';
-// import Favorites from './favorites';
-// import MyNotes from './mynotes';
-// import NoteScreen from './note';
 import Home from './home';
-import Account from './account';
 import CurrScreen from './currency';
 import RateScreen from './rate';
-
-// const FeedStack = createStackNavigator({
-//     Feed: Feed,
-//     Note: NoteScreen
-// });
-
-// const MyStack = createStackNavigator({
-//     MyNotes: MyNotes,
-//     Note: NoteScreen
-// });
-
-// const FavStack = createStackNavigator({
-//     Favorites: Favorites,
-//     Note: NoteScreen
-// });
+import SignUp from './signup';
+import SignIn from './signin';
+import Settings from './settings';
 
 const HomeStack = createStackNavigator({
     Home: Home,
@@ -35,9 +17,10 @@ const HomeStack = createStackNavigator({
     Rate: RateScreen
 });
 
-const AccStack = createStackNavigator({
-    Account: Account,
-    Currency: CurrScreen
+const SettingsStack = createStackNavigator({
+    Settings: Settings,
+    SignIn: SignIn,
+    SignUp: SignUp
 });
 
 const TabNavigator = createBottomTabNavigator({
@@ -50,12 +33,12 @@ const TabNavigator = createBottomTabNavigator({
             )
         }
     },
-    AccScreen: {
-        screen: AccStack,
+    SettingsScreen: {
+        screen: SettingsStack,
         navigationOptions: {
             tabBarLabel: 'Account',
             tabBarIcon: ({ tintColor }) => (
-                <MaterialCommunityIcons name="account" size={24} color={tintColor} />
+                <MaterialCommunityIcons name="cog" size={24} color={tintColor} />
             )
         }
     },
