@@ -1,30 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 
+import ax from '../../config/axios';
 import Loading from "../components/Loading";
-import axios from '../../config/axios';
 import CurrFeed from '../components/CurrFeed';
 
 const Home = props => {
 
     const [currencies, setCurrencies] = useState(false);
-
-    axios.get("currencies").then(data => {
-        setCurrencies(data.data);
-    }).catch(err => {
-        return <Text>Error {err} </Text>;
-    });
-
-    if(!currencies) return <Loading />;
+    const [error, setError] = useState(false);
     
-    var mappedResult = Object.keys(currencies).map((key, index) => {
-        return {
-            id: key,
-            val: currencies[key]
-        };
-    });
+    const getCurrencies = () => {
+        ax.get("currencies").then(data => {
+            const mappedResult = Object.keys(data.data).map((key, index) => {
+                return {
+                    id: key,
+                    val: data.data[key]
+                };
+            });
+            setCurrencies(mappedResult);
+        }).catch(err => {
+            setError(err);
+        });
+    }
 
-    return <CurrFeed currencies={mappedResult} 
+    useEffect(() => {
+        getCurrencies();
+        return () => {};
+    }, []);
+
+    if(error)   return <View><Text>Error {error}</Text></View>;
+    if(!currencies) return <Loading />;
+
+    return <CurrFeed currencies={currencies} 
             navigation={props.navigation}/>;
 };
 

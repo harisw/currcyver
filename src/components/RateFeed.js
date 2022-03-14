@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 
 const RateView = styled.View``;
 const FeedView = styled.View`
-    height: 30px;
+    height: 50px;
     overflow: hidden;
     padding: 5px;
     display: flex;
@@ -28,7 +28,7 @@ const RateFeed = props => {
                         props.navigation.navigate('Rate', {
                             fromId: props.fromRate,
                             toId: item.id,
-                            currencyName: props.currencyName
+                            toRate: item.val
                     })}>
                         <FeedView>
                             <Text>{item.val} {item.id}</Text>

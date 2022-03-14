@@ -1,15 +1,16 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Text, View } from 'react-native';
 import styled from "styled-components/native";
 
 import Loading from "../components/Loading";
-import Currency from "../components/Currency";
 import RateFeed from "../components/RateFeed";
 
-import axios from "../../config/axios";
+import axios from "axios";
+
+const URL = "https://api.frankfurter.app/";
 
 const Header = styled.View`
-    height: 150px;
+    height: 100px;
     background-color: #F0FFC2
     border-bottom-width: 5px;
     border-bottom-color: black;
@@ -23,17 +24,26 @@ const HeaderText = styled.Text`
 const CurrScreen = props => {
     const id = props.navigation.getParam('id');
     const name = props.navigation.getParam('currencyName');
-    const [data, setRate] = useState(false);
+    const [data, setData] = useState(false);
+    const [error, setError] = useState(false);
 
-    axios.get(`latest?from=${id}`).then(res => {
-        setRate(res.data);
-    }).catch(err => {
-        return <Text>Error {err}</Text>
-    });
+    const getData = () => {
+        axios.get(`${URL}latest?from=${id}`).then(res => {
+            setData(res.data);
+        }).catch(err => {
+            setError(err.message);
+        });
+    };
 
+    useEffect(() => {
+        getData();
+        return () => {};
+    }, []);
+
+    if(error)   return <View><Text>Error {error}</Text></View>;
     if(!data) return <Loading />;
 
-    var mappedRates = Object.keys(data.rates).map((key, index) => {
+    const mappedRate = Object.keys(data.rates).map((key, index) => {
         return {
             id: key,
             val: data.rates[key]
@@ -45,7 +55,7 @@ const CurrScreen = props => {
                 <HeaderText>{name}</HeaderText>
                 <Text>{data.amount} {data.base}</Text>
             </Header>
-            <RateFeed fromRate={id} rates={mappedRates} navigation={props.navigation}
+            <RateFeed fromRate={id} rates={mappedRate} navigation={props.navigation}
                 currencyName={name}/>
         </View>
     );

@@ -11,7 +11,9 @@ const LoadingWrap = styled.View`
 const Loading = () => {
     return (
         <LoadingWrap>
-            <ActivityIndicator size="large" />
+            <ActivityIndicator size="large"
+            animating={true}
+            style={{height:100}} />
         </LoadingWrap>
     );
 };

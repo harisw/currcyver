@@ -2,8 +2,6 @@ import React from "react";
 import { FlatList, View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-import Currency from "./Currency";
-
 const FeedView = styled.View`
     padding: 5px;
     height: 50px;
