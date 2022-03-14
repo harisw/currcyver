@@ -15,22 +15,36 @@ const RateView = styled.View`
     height: 100%;
 `;
 const HeaderText = styled.Text`
-    font-size: 20px;
+    font-size: 35px;
     font-weight: bold;
 `;
 
 const StyledInput = styled.TextInput`
-    border: 1px solid gray;
-    font-size: 15px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 20px;
     padding: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    flex: 1;
+    background-color: white;
+    width: 100%;
 `;
 const FormButton = styled.TouchableOpacity`
     background: #0077cc;
-    width: 100%;
-    padding: 8px;
+    border: 2px solid gray;
+    padding: 0px;
+    width: 50px;
 `;
 
+const FormLabel = styled.Text`
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding-left: 15px;
+    padding-top: 5px;
+`;
 const ButtonText = styled.Text`
     text-align: center;
     color: #fff;
@@ -69,25 +83,27 @@ const RateScreen = props => {
 
     return (
         <RateView>
-            <HeaderText>1 {baseId} equals</HeaderText>
-            <HeaderText>{rate} {toId}</HeaderText>
-            <View style={{flexDirection: "row", margin: 10}}>
-                <View style={{flex: 1, flexDirection: "row"}}>
-                    <View style={{flex: 1, flexDirection: "column"}}>
+            <View style={{alignItems: 'center'}}>
+            <HeaderText>1 {baseId} = {rate} {toId}</HeaderText>
+            </View>
+            <View style={{flexDirection: "row", margin: 10, height: '20%'}}>
+                <View style={{flex: 8, flexDirection: "column", marginRight: 0}}>
+                    <View style={{flex: 1, flexDirection: "row", marginBottom: 20}}>
                         <StyledInput value={baseAmount.toString()}
                         onChangeText={convertRate}
                         keyboardType="numeric"/>
-                        <StyledInput editable={false} value={toAmount.toString()}/>
+                        <FormLabel>{baseId}</FormLabel>
                     </View>
-                    <View style={{flex: 1, flexDirection: "column"}}>
-                        <Text>{baseId}</Text>
-                        <Text>{toId}</Text>
+                    <View style={{flex: 1, flexDirection: "row"}}>
+                        <StyledInput editable={false} value={toAmount.toString()}/>
+                        <FormLabel>{toId}</FormLabel>
                     </View>
                 </View>
-                <View style={{flex: 1}}>
-                    <TouchableOpacity>
-                        <MaterialCommunityIcons name="arrow-up-down-bold" size={50} color="black" />
-                    </TouchableOpacity>
+                <View style={{display: 'flex', flex: 2, justifyContent: 'center'}}>
+                    <FormButton>
+                        <MaterialCommunityIcons style={{}}
+                        name="arrow-up-down-bold" size={50} color="black" />
+                    </FormButton>
                 </View>
             </View>
         </RateView>
