@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import {StyleSheet, View, Text,
     TouchableOpacity, TextInput} from 'react-native';
 import axios from 'axios';
-import Loading from "../components/Loading";
 import styled from "styled-components/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import fx from "money";
+
+import Loading from "../components/Loading";
+import RateChart from "../components/RateChart";
 
 const URL = "https://api.frankfurter.app/";
 
@@ -106,6 +108,7 @@ const RateScreen = props => {
                     </FormButton>
                 </View>
             </View>
+            <RateChart from={baseId} to={toId}/>
         </RateView>
     );
 };
