@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Home from './home';
+import Alarm from './alarm';
 import CurrScreen from './currency';
 import RateScreen from './rate';
 import SignUp from './signup';
@@ -15,6 +16,10 @@ const HomeStack = createStackNavigator({
     Home: Home,
     Currency: CurrScreen,
     Rate: RateScreen
+});
+
+const AlarmStack = createStackNavigator({
+    Alarm: Alarm
 });
 
 const SettingsStack = createStackNavigator({
@@ -30,6 +35,15 @@ const TabNavigator = createBottomTabNavigator({
             tabBarLabel: 'Home',
             tabBarIcon: ({ tintColor }) => (
                 <MaterialCommunityIcons name="home" size={24} color={tintColor} />
+            )
+        }
+    },
+    AlarmScreen: {
+        screen: AlarmStack,
+        navigationOptions: {
+            tabBarLabel: 'Alarm',
+            tabBarIcon: ({ tintColor }) => (
+                <MaterialCommunityIcons name="bell-alert" size={24} color={tintColor} />
             )
         }
     },

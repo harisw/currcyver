@@ -5307,6 +5307,13 @@ react-native-markdown-renderer@^3.2.8:
     prop-types "^15.5.10"
     react-native-fit-image "^1.5.2"
 
+react-native-picker-select@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-3.0.0.tgz#b03d28d4ff399105ac09ac41b54a1be006a4d001"
+  integrity sha512-1DadTPH9mG88gL72ctT96S8FAOWxUqIv4x2eQCVs4ZgsRuMnuiwRVsSqe4+y18C/rv2bV8o+OW4Sxp85tjvzwQ==
+  dependencies:
+    lodash.isequal "^4.5.0"
+
 react-native-reanimated@~2.3.1:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.3.3.tgz#73de8ea495e59a091d848741e7037ac55d0235c4"

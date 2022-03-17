@@ -33,18 +33,9 @@ const RateScreen = props => {
     const [baseValue, setBaseValue] = useState(props.navigation.getParam('fromId'));
     const [toValue , setToValue] = useState(props.navigation.getParam('toId'));
     const [rate, setRate] = useState(props.navigation.getParam('toRate'));
-    
-    // const setupFX = () => {
-    //     fx.base = baseId;
-    //     fx.rates = {
-    //         [baseId]: 1,
-    //         [toId]: rate
-    //     };
-    // };
-    // useEffect(() => {
-    //     setupFX();
-    //     return () => {};
-    // }, [rate]);
+
+    const firstId = baseValue;
+    const secondId = toValue;
 
     const swapState = (newRate) => {
         const currentTo = toValue;
@@ -66,9 +57,6 @@ const RateScreen = props => {
             </View>
             <ConverterForm baseId={baseValue} toId={toValue} rate={rate}
                 swapState={swapState}/>
-            {/* <View style={{flexDirection: "row", margin: 10}}>
-            
-            </View> */}
         </RateView>
     );
 };
