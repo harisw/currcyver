@@ -4,6 +4,8 @@ import styled from "styled-components/native";
 import ax from '../../config/axios';
 import RNPickerSelect from 'react-native-picker-select';
 import Loading from "../components/Loading";
+import { query_insertAlarm, query_getAllAlarm, query_deleteAllAlarm } from "../query";
+
 const HeaderText = styled.Text`
     font-size: 20px;
     font-weight: bold;
@@ -35,9 +37,13 @@ const FormButton = styled.TouchableOpacity`
     background: #0077cc;
     width: 100%;
     padding: 8px;
+    margin: 5px;
+    justify-content: center;
+    border-radius: 20px;
 `;
 
 const ButtonText = styled.Text`
+    justify-content: center;
     text-align: center;
     color: #fff;
     font-weight: bold;
@@ -50,6 +56,8 @@ const AlarmScreen = props => {
     const [baseCurrency, setBaseCurrency] = useState();
     const [targetCurrency, setTargetCurrency] = useState();
     const [targetValue, setTargetValue] = useState();
+
+    const [alarms, setAlarms] = useState();
 
     const getCurrencies = () => {
         ax.get("currencies").then(data => {
@@ -69,8 +77,24 @@ const AlarmScreen = props => {
 
     useEffect(() => {
         getCurrencies();
+        
         return () => {};
     }, []);
+
+    const getAlarm = () => {
+        query_getAllAlarm()
+        .then(res => {setAlarms(res); console.log(res)})
+        .catch(err => console.log(err));
+    }
+    const insertAlarm = () => {
+        const res = query_insertAlarm(baseCurrency, targetCurrency, targetValue);
+        getAlarm();
+    };
+    const resetAlarm = () => {
+        query_deleteAllAlarm();
+        getAlarm();
+    };
+
     if(error)   return <View><Text>Error {error}</Text></View>;
     if(!currencies) return <Loading />;
 
@@ -84,7 +108,7 @@ const AlarmScreen = props => {
                         useNativeAndroidPickerStyle={false}
                         style={{inputAndroid:{color: 'black',
                         borderWidth: 2, borderRadius: 10, backgroundColor: 'gray'}}}
-                        onValueChange={(v) => console.log(v)}
+                        onValueChange={(v) => setBaseCurrency(v)}
                         items={currencies}
                     />
                     <StyledInput style={{marginLeft:'auto'}}
@@ -95,18 +119,36 @@ const AlarmScreen = props => {
                     <RNPickerSelect
                         useNativeAndroidPickerStyle={false}
                         style={{inputAndroid:{color: 'black'}}}
-                        onValueChange={(v) => console.log(v)}
+                        onValueChange={(v) => setTargetCurrency(v)}
                         items={currencies}
                     />
-                    <StyledInput />
+                    <StyledInput onChangeText={text => setTargetValue(text)}
+                    keyboardType="numeric"/>
                 </View>
                 
             </View>
-            <FormButton>
-                    <ButtonText>
-                        Add Alarm
+            <View style={{flexDirection: 'row'}}>
+                <FormButton style={{flex: 3}}>
+                    <ButtonText onPress={insertAlarm}>
+                        Turn Off
                     </ButtonText>
                 </FormButton>
+                <FormButton style={{flex: 5}}>
+                    <ButtonText onPress={insertAlarm}>
+                        Set Alarm
+                    </ButtonText>
+                </FormButton>
+            </View>
+            <FormButton>
+                <ButtonText onPress={insertAlarm}>
+                    + Add More Alarm
+                </ButtonText>
+            </FormButton>
+            <View>
+                <ButtonText onPress={resetAlarm}>
+                    Reset/Empty Alarm
+                </ButtonText>
+            </View>
         </AlarmView>
     );
 };

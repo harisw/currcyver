@@ -20,6 +20,7 @@ const Home = props => {
             });
             setCurrencies(mappedResult);
         }).catch(err => {
+            console.log(err);
             setError(err);
         });
     }
